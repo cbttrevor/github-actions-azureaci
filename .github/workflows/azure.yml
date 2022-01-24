@@ -1,0 +1,20 @@
+on:
+  push:
+
+env:
+  AZURE_REGISTRY: baconparty.azurecr.io
+
+jobs:
+  azurecontainerbuild:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to Microsoft Azure (CLI)
+      shell: pwsh
+      run: |
+        az login --service-principal --user ${{ secrets.AZURE_SERVICE_PRINCIPAL }} --password ${{ secrets.AZURE_SERVICE_PRINCIPAL_SECRET }} --tenant ${{ secrets.AZURE_AD_TENANT }}
+    - uses: azure/docker-login@v1
+      with:
+        login-server: ${{ env.AZURE_REGISTRY }}
+        username: ${{ secrets.AZURE_SERVICE_PRINCIPAL }}
+        password: ${{ secrets.AZURE_SERVICE_PRINCIPAL_SECRET }}
+
