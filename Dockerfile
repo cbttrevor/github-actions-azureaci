@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/powershell:latest
 
-SHELL ["pwsh", "Command"]
+SHELL ["pwsh", "-Command"]
 
 WORKDIR /
 
