@@ -3,6 +3,7 @@ on:
 
 env:
   AZURE_REGISTRY: baconparty.azurecr.io
+  DOCKER_TAGS: baconparty.azurecr.io/pode:latest
 
 jobs:
   azurecontainerbuild:
@@ -12,9 +13,14 @@ jobs:
       shell: pwsh
       run: |
         az login --service-principal --user ${{ secrets.AZURE_SERVICE_PRINCIPAL }} --password ${{ secrets.AZURE_SERVICE_PRINCIPAL_SECRET }} --tenant ${{ secrets.AZURE_AD_TENANT }}
-    - uses: azure/docker-login@v1
+    - name: Login to Azure Container Registry (ACR)
+      uses: azure/docker-login@v1
       with:
         login-server: ${{ env.AZURE_REGISTRY }}
         username: ${{ secrets.AZURE_SERVICE_PRINCIPAL }}
         password: ${{ secrets.AZURE_SERVICE_PRINCIPAL_SECRET }}
-
+    - name: Build and Push Container Image
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: ${{ env.DOCKER_TAGS }}
