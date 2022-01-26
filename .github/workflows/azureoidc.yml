@@ -1,0 +1,10 @@
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  oidc:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to Azure
+      uses: azure/login@v1
