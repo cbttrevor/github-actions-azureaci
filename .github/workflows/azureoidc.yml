@@ -15,3 +15,6 @@ jobs:
         tenant-id: ${{ secrets.AZURE_AD_TENANT }}
         client-id: ${{ secrets.AZURE_OIDC_CLIENT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    - uses: Azure/docker-login@v1
+      with:
+        login-server: trevorsullivan.azurecr.io
