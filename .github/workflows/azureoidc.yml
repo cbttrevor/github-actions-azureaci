@@ -18,5 +18,4 @@ jobs:
     - name: Login to Azure Container Registry
       shell: pwsh
       run: |
-        Install-Module -Name Az.ContainerRegistry -Force
-        Connect-AzContainerRegistry -Name trevorsullivan
+        az acr login --name trevorsullivan
